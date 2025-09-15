@@ -1,4 +1,4 @@
-# Olatunbosun Ibiyinka Portfolio
+# Stanley (Odera) Aghara Portfolio
 
 A modern, responsive portfolio website showcasing Olatunbosun Ibiyinka's DevOps engineering expertise. Built with React and Tailwind CSS, featuring a dark, futuristic B2B SaaS design.
 

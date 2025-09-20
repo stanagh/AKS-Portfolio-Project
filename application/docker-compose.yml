@@ -1,0 +1,8 @@
+version: '3.8'
+
+services:
+  app:
+    ##image: you can here the image from AWS or Azure Container registry 
+    build: . ## Assuming Dockerfile is in the same directory
+    ports:
+      - "3000:3000"

@@ -1,31 +1,22 @@
-## Stage 1
-FROM node:18-slim as Build
+# Stage 1: Build
+FROM node:18-alpine as Build
 
 WORKDIR /app
 
-## COPY package*.json ./
+COPY package*.json ./
+RUN npm ci && npm cache clean --force
 
-COPY . . 
-
-RUN npm install
-RUN npm install -g nodemon
+COPY . .
 RUN npm run build
-RUN npm prune --production
 
-## Stage 2
-FROM node:18-slim
+# Stage 2: Serve
+FROM node:18-alpine
 
 WORKDIR /app
 
-COPY --from=Build /app /app
+RUN npm install -g serve
+
+COPY --from=Build /app/build ./build
 
 EXPOSE 3000
-
-
-CMD ["npm", "start"]
-
-
-
-
-
-
+CMD ["serve", "-s", "build", "-l", "3000"]

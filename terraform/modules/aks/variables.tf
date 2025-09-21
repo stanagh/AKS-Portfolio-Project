@@ -28,8 +28,8 @@ variable "node_count" {
 variable "node_vm_size" {
   description = "The size of the Virtual Machine to use for the nodes in the default node pool."
   type        = string
-  default     = "Standard_D2_v2"
-  
+  default     = "Standard_B1s"
+    
 }
 
 variable "identity_type" {

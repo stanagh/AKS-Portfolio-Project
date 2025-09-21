@@ -2,5 +2,7 @@ node_modules
 *.terraform.lock.hcl
 *.terraform/
 *.terraform/terraform.tfstate 
-environmentvariables.ps1
-notes.txt
+terraform.tfvars
+terraform.tfvars.json  
+terraform.tfstate
+terraform.tfstate.backup

@@ -1,0 +1,46 @@
+variable "key_vault_name" {
+  description = "The name of the Key Vault. Must be between 3 and 24 characters in length and use numbers and lower-case letters only."
+  type        = string
+  
+}
+
+variable "resource_group_name" {
+  description = "The name of the resource group in which to create the Key Vault."
+  type        = string  
+}
+
+variable "location" {
+  description = "The Azure region where the Key Vault will be created."
+  type        = string
+}
+
+variable "tags" {
+  description = "A mapping of tags to assign to the resource."
+  type        = map(string)
+  default     = {}  
+}
+
+variable "tenant_id" {
+  description = "The Tenant ID that should be used for authenticating requests to the Key Vault."
+  type        = string
+}
+
+variable "sku_name" {
+  description = "The SKU name to use for this Key Vault. Possible values are 'standard' and 'premium'."
+  type        = string
+}
+
+variable "soft_delete_retention_days" {
+  description = "Specifies the number of days that deleted key vaults are retained. Value must be between 7 and 90 days."
+  type        = number
+}
+
+variable "purge_protection_enabled" {
+  description = "Is Purge Protection enabled for this Key Vault? Defaults to false."
+  type        = bool
+}
+
+variable "enabled_for_disk_encryption" {
+  description = "Is disk encryption enabled for this Key Vault? Defaults to false."
+  type        = bool
+}

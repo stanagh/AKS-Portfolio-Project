@@ -74,3 +74,6 @@ module "dns" {
   ttl                 = 300
   tags                = local.tags
 }
+
+
+

@@ -1,12 +1,12 @@
 variable "key_vault_name" {
   description = "The name of the Key Vault. Must be between 3 and 24 characters in length and use numbers and lower-case letters only."
   type        = string
-  
+
 }
 
 variable "resource_group_name" {
   description = "The name of the resource group in which to create the Key Vault."
-  type        = string  
+  type        = string
 }
 
 variable "location" {
@@ -17,7 +17,7 @@ variable "location" {
 variable "tags" {
   description = "A mapping of tags to assign to the resource."
   type        = map(string)
-  default     = {}  
+  default     = {}
 }
 
 variable "tenant_id" {
@@ -38,9 +38,23 @@ variable "soft_delete_retention_days" {
 variable "purge_protection_enabled" {
   description = "Is Purge Protection enabled for this Key Vault? Defaults to false."
   type        = bool
+  default     = true
 }
 
 variable "enabled_for_disk_encryption" {
   description = "Is disk encryption enabled for this Key Vault? Defaults to false."
   type        = bool
+}
+
+variable "bypass" {
+  description = "Specifies which traffic can bypass the network rules. Possible values are 'AzureServices', 'None' and 'Logging'. Defaults to 'AzureServices'."
+  type        = string
+  default     = "AzureServices"
+
+}
+
+variable "default_action" {
+  description = "Specifies the default action of allow or deny when no other rules match. Possible values are 'Allow' and 'Deny'"
+  default     = "Allow"
+
 }

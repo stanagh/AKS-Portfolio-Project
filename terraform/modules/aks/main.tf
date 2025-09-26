@@ -1,9 +1,13 @@
 resource "azurerm_kubernetes_cluster" "aks_cluster" {
-  name                = var.aks_cluster_name
-  location            = var.location
-  resource_group_name = var.resource_group_name
-  dns_prefix          = var.dns_prefix
-  tags = var.tags
+  name                              = var.aks_cluster_name
+  location                          = var.location
+  resource_group_name               = var.resource_group_name
+  dns_prefix                        = var.dns_prefix
+  tags                              = var.tags
+  role_based_access_control_enabled = var.role_based_access_control_enabled
+  network_profile {
+    network_plugin = var.network_plugin
+  }
 
   default_node_pool {
     name       = "default"

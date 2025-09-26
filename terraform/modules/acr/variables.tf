@@ -29,5 +29,39 @@ variable "tags" {
   description = "A mapping of tags to assign to the resource."
   type        = map(string)
   default     = {}
-  
+
+}
+
+variable "data_endpoint_enabled" {
+  description = "Specifies whether the data endpoint is enabled."
+  type        = bool
+  default     = true
+}
+
+variable "quarantine_policy_enabled" {
+  description = "Specifies whether the quarantine policy is enabled."
+  type        = bool
+  default     = true
+}
+
+variable "retention_policy_in_days" {
+  description = "Specifies the number of days to retain untagged manifests."
+  type        = number
+  default     = 7
+}
+
+variable "zone_redundancy_enabled" {
+  description = "Specifies whether zone redundancy is enabled. Only available for Premium SKU."
+  type        = bool
+}
+
+variable "georeplications_location" {
+  description = "A list of locations for geo-replication. Only available for Premium SKU."
+  type        = list(string)
+}
+
+variable "public_network_access_enabled" {
+  description = "Specifies whether public network access is enabled."
+  type        = bool
+
 }

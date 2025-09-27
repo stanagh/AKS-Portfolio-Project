@@ -51,14 +51,6 @@ variable "role_based_access_control_enabled" {
 
 }
 
-variable "network_plugin" {
-  description = "The network plugin to use for the AKS cluster. Possible values are 'azure' and 'kubenet'. Defaults to 'azure'."
-  type        = string
-
-}
-
-
-
 
 
 

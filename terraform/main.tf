@@ -19,7 +19,7 @@ module "storage" {
   account_tier             = "Standard"
   account_replication_type = "LRS"
   tags                     = local.tags
-  min_tls_version          = "TLS1_2"
+  min_tls_version = "TLS1_2"
 }
 
 module "keyvault" {
@@ -40,7 +40,7 @@ module "acr" {
   acr_name            = "${local.prefix}acr${random_integer.suffix.result}"
   resource_group_name = azurerm_resource_group.rg.name
   location            = local.location
-  sku                 = "Premium"
+  sku                 = "Standard"
   admin_enabled       = false
   tags                = local.tags
 }
@@ -53,17 +53,16 @@ resource "azurerm_role_assignment" "acr_pull" {
 }
 
 module "aks" {
-  source                            = "./modules/aks"
-  aks_cluster_name                  = "${local.prefix}-aks-${local.environment}-${random_integer.suffix.result}"
-  resource_group_name               = azurerm_resource_group.rg.name
-  location                          = local.location
-  dns_prefix                        = "${local.prefix}-aks-${local.environment}"
-  node_count                        = 2
-  node_vm_size                      = "Standard_D2_v2"
-  identity_type                     = "SystemAssigned"
-  tags                              = local.tags
+  source              = "./modules/aks"
+  aks_cluster_name    = "${local.prefix}-aks-${local.environment}-${random_integer.suffix.result}"
+  resource_group_name = azurerm_resource_group.rg.name
+  location            = local.location
+  dns_prefix          = "${local.prefix}-aks-${local.environment}"
+  node_count          = 2
+  node_vm_size        = "Standard_D2_v2"
+  identity_type       = "SystemAssigned"
+  tags                = local.tags  
   role_based_access_control_enabled = true
-  network_plugin                    = "azure"
 }
 
 module "dns" {

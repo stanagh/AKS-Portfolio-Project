@@ -48,15 +48,7 @@ variable "tags" {
 variable "role_based_access_control_enabled" {
   description = "Enable or disable Role-Based Access Control (RBAC) for the AKS cluster. Defaults to true."
   type        = bool
-
 }
-
-variable "network_plugin" {
-  description = "The network plugin to use for the AKS cluster. Possible values are 'azure' and 'kubenet'. Defaults to 'azure'."
-  type        = string
-
-}
-
 
 
 

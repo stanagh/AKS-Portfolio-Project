@@ -26,5 +26,5 @@ spec:
             limits:
               cpu: "500m"
               memory: "256Mi"
-      imagePullSecrets:
-        - name: acr-secret
+      # imagePullSecrets:
+      #   - name: acr-secret

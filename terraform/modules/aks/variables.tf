@@ -48,7 +48,10 @@ variable "tags" {
 variable "role_based_access_control_enabled" {
   description = "Enable or disable Role-Based Access Control (RBAC) for the AKS cluster. Defaults to true."
   type        = bool
+
 }
+
+
 
 
 

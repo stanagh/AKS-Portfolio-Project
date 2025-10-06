@@ -45,4 +45,4 @@ jobs:
       run: |
         kubectl rollout status deployment/react-portfolio-app
         kubectl get pods
-        kubectl get svc
+        kubectl get services

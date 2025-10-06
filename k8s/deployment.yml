@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: my-app-container
-          image: infraacr5690.azurecr.io/react-portfolio-app:v3
+          image: infraacr5690.azurecr.io/react-portfolio-app:v1
           ports:
             - containerPort: 3000
           resources:

@@ -22,16 +22,16 @@ jobs:
 
       - name: Log in to ACR
         run: |
-          az acr login --name <acr1name>
+          az acr login --name infraacr5690
 
       - name: Build Docker image
-        run: docker build -t react-portfolio-app:v3 .
+        run: docker build -t react-portfolio-app:v1 ./application
 
       - name: Scan Docker image with Trivy
         id: trivy
         uses: aquasecurity/trivy-action@0.14.0
         with:
-          image-ref: '<acrcontainername/react-app-portfolio:v3'
+          image-ref: 'infraacr5690.azurecr.io/react-portfolio-app:v1'
           format: 'table'
           exit-code: '0'
           ignore-unfixed: true

@@ -19,7 +19,7 @@ module "storage" {
   account_tier             = "Standard"
   account_replication_type = "LRS"
   tags                     = local.tags
-  min_tls_version = "TLS1_2"
+  min_tls_version          = "TLS1_2"
 }
 
 module "keyvault" {
@@ -59,7 +59,7 @@ module "aks" {
   location                          = local.location
   dns_prefix                        = "${local.prefix}-aks-${local.environment}"
   node_count                        = 2
-  node_vm_size                      = "Standard_D2_v2"
+  node_vm_size                      = "Standard_B2s"
   identity_type                     = "SystemAssigned"
   tags                              = local.tags
   role_based_access_control_enabled = true
@@ -69,8 +69,8 @@ module "dns" {
   source              = "./modules/dns"
   resource_group_name = azurerm_resource_group.rg.name
   location            = local.location
-  dns_name            = "stanagh.com"
-  a_record_name       = "www"
+  dns_name            = "stanley-portfolio.com"
+  a_record_name       = "dev"
   public_ip_name      = "${local.prefix}-pip-${local.environment}-${random_integer.suffix.result}"
   public_ip_sku       = "Standard"
   ttl                 = 300

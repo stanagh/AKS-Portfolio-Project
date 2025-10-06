@@ -1,0 +1,42 @@
+name: Build and Push to ACR
+
+on:
+  push:
+    branches:
+      - main  # trigger on push to main branch
+    pull_request:
+      branches:
+        - main  # trigger on pull request to main branch
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Log in to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Log in to ACR 
+      run: |
+        az acr login --name <acr1name>
+    
+    - name: Docker build and push Docker image to ACR
+      run: |
+        docker build -t <acr1name>.azurecr.io/react-portfolio-app:v3 .
+        docker push <acr1name>.azurecr.io/react-portfolio-app:v3
+
+    - name: Set AKS CLI
+      run: |
+        az aks get-credentials --resource-group <rg1name> --name <aks1name>s
+
+    - name: Deploy to AKS
+      run: |
+        kubectl apply -f k8s/deployment.yml
+        kubectl apply -f k8s/service.yml
+        kubectl apply -f k8s/ingress.yml
+        kubectl get all

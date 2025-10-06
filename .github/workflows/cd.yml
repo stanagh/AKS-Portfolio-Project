@@ -1,0 +1,64 @@
+name: Docker Image Security Scan
+
+on:
+  workflow_run:
+    workflows: ["Build and Push to ACR"]
+    types:
+      - completed
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Login to Azure
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Log in to ACR
+        run: |
+          az acr login --name <acr1name>
+
+      - name: Build Docker image
+        run: docker build -t react-portfolio-app:v3 .
+
+      - name: Scan Docker image with Trivy
+        id: trivy
+        uses: aquasecurity/trivy-action@0.14.0
+        with:
+          image-ref: '<acrcontainername/react-app-portfolio:v3'
+          format: 'table'
+          exit-code: '0'
+          ignore-unfixed: true
+          vuln-type: 'os,library'
+          output: trivy-report.txt
+
+      - name: Check for vulnerabilities
+        id: check_vulns
+        run: |
+          if grep -q "CRITICAL" trivy-report.txt || grep -q "HIGH" trivy-report.txt; then
+            echo "found=true" >> $GITHUB_OUTPUT
+          else
+            echo "found=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Send Email Alert (via SMTP - iCloud example)
+        if: steps.check_vulns.outputs.found == 'true'
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.mail.me.com
+          server_port: 587
+          username: ${{ secrets.ICLOUD_EMAIL }}
+          password: ${{ secrets.ICLOUD_APP_PASSWORD }}
+          subject: "🚨 Security Alert: Vulnerabilities in Docker Image"
+          to: "your_email@icloud.com"
+          from: "CI Pipeline <${{ secrets.ICLOUD_EMAIL }}>"
+          body: |
+            Vulnerabilities were found in the latest Docker build.
+            See attached Trivy report.
+          attachments: trivy-report.txt

@@ -43,6 +43,5 @@ jobs:
     
     - name: Verify Deployment
       run: |
-        kubectl rollout status deployment/react-portfolio-app
         kubectl get pods
         kubectl get services

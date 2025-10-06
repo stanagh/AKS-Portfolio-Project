@@ -27,7 +27,7 @@ jobs:
     
     - name: Docker build and push Docker image to ACR
       run: |
-        docker build -t infraacr5690.azurecr.io/react-portfolio-app:v1 .
+        docker build -t infraacr5690.azurecr.io/react-portfolio-app:v1 ./app
         docker push infraacr5690.azurecr.io/react-portfolio-app:v1
 
     - name: Set AKS CLI

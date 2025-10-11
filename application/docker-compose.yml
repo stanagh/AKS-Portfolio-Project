@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   app:
-    ##image: you can here the image from AWS or Azure Container registry 
-    build: . ## Assuming Dockerfile is in the same directory
+    ##image: react-portfolio-app:latest
+    build: . ## Assuming Dockerfile is in the same directory as the application dependency files
     ports:
       - "3000:3000"

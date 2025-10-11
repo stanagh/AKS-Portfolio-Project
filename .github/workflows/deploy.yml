@@ -1,12 +1,13 @@
 name: Build and Push to ACR
 
 on:
-  push:
-    branches:
-      - main  # trigger on push to main branch
-  pull_request:
-      branches:
-        - main  # trigger on pull request to main branch
+    # push:
+  #   paths:
+  #     - 'application/**'  # Trigger on changes in the application directory
+  workflow_run:
+    workflows: ["Terraform infrastructure push"]
+    types:
+      - completed
 
 jobs:
   build-and-push:

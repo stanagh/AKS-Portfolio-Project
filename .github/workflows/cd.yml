@@ -27,7 +27,7 @@ jobs:
       - name: Build Docker image
         run: docker build -t react-portfolio-app:v1 ./application
 
-      - name: Scan Docker image with Trivy
+      - name: Run Trivy vulnerability scanner
         id: trivy
         uses: aquasecurity/trivy-action@0.14.0
         with:
@@ -35,17 +35,17 @@ jobs:
           format: 'table'
           exit-code: '0'
           ignore-unfixed: true
-          vuln-type: 'os,library'
           output: trivy-report.txt
 
-      - name: Check for vulnerabilities
-        id: check_vulns
-        run: |
-          if grep -q "CRITICAL" trivy-report.txt || grep -q "HIGH" trivy-report.txt; then
-            echo "found=true" >> $GITHUB_OUTPUT
-          else
-            echo "found=false" >> $GITHUB_OUTPUT
-          fi
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        with:
+          projectBaseDir: . 
+          args: >
+            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+            -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
+            -Dsonar.organization=${{ secrets.SONAR_ORG }}
+            -Dsonar.host.url=https://sonarcloud.io            
 
       - name: Send Email Alert (via SMTP - iCloud example)
         if: steps.check_vulns.outputs.found == 'true'

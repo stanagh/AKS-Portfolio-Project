@@ -10,6 +10,10 @@ terraform {
 
 
 provider "azurerm" {
-  features {}
+  features {
+    resource_group {
+      prevent_deletion_if_contains_resources = false  # Set to true to prevent deletion of resource groups that contain resources
+    }
+  }
   skip_provider_registration = true
 }

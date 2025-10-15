@@ -15,5 +15,5 @@ provider "azurerm" {
       prevent_deletion_if_contains_resources = false  # Set to true to prevent deletion of resource groups that contain resources
     }
   }
-  # skip_provider_registration = false
+  skip_provider_registration = true
 }

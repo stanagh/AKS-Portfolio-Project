@@ -36,7 +36,7 @@ jobs:
             creds: ${{ secrets.AZURE_CREDENTIALS }}
         
         - name: Terraform Init
-          run: terraform init
+          run: terraform init -upgrade
 
         - name: Terraform Destroy
           if: ${{ github.event.inputs.action == 'yes' }}

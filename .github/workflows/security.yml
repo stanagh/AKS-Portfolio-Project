@@ -1,10 +1,17 @@
 name: Docker Image Security Scan
 
 on:
-  workflow_run:
-    workflows: ["Build and Push to ACR"]
-    types:
-      - completed
+  # workflow_run:
+  #   workflows: ["Build and Push to ACR"]
+  #   types:
+  #     - completed
+    workflow_dispatch:
+     inputs:
+      action:
+        description: 'Select action (yes or no)'
+        required: true
+        default: 'yes'
+
 
 jobs:
   scan:

@@ -67,7 +67,6 @@ module "aks" {
 module "dns" {
   source              = "./modules/dns"
   resource_group_name = azurerm_resource_group.rg.name
-  dns_zone            = "${local.prefix}-dns-${local.environment}-${random_integer.suffix.result}"
   location            = local.location
   dns_name            = "stanley-portfolio.com"
   a_record_name       = "dev"

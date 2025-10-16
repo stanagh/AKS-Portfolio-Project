@@ -1,13 +1,20 @@
 name: Build and Push to ACR
 
 on:
+  workflow_dispatch:
+    inputs:
+      action:
+        description: 'Select action (apply or plan)'
+        required: true
+        default: 'apply'
     # push:
   #   paths:
   #     - 'application/**'  # Trigger on changes in the application directory
-  workflow_run:
-    workflows: ["Terraform infrastructure push"]
-    types:
-      - completed
+  # workflow_run:
+  #   workflows: ["Terraform infrastructure push"]
+  #   types:
+  #     - completed
+
 
 jobs:
   build-and-push:

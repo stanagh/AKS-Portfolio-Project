@@ -62,8 +62,3 @@ variable "records" {
   default     = ["10.0.180.17"]
 
 }
-
-variable "dns_zone" {
-  description = "The name of the DNS zone (e.g., example.com)."
-  type        = string
-}

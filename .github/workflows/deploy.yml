@@ -1,20 +1,13 @@
 name: Build and Push to ACR
 
 on:
-  workflow_dispatch:
-    inputs:
-      action:
-        description: 'Select action (apply or plan)'
-        required: true
-        default: 'apply'
     # push:
   #   paths:
   #     - 'application/**'  # Trigger on changes in the application directory
-  # workflow_run:
-  #   workflows: ["Terraform infrastructure push"]
-  #   types:
-  #     - completed
-
+  workflow_run:
+    workflows: ["Terraform infrastructure push"]
+    types:
+      - completed
 
 jobs:
   build-and-push:
@@ -40,7 +33,7 @@ jobs:
 
     - name: Set AKS CLI
       run: |
-        az aks get-credentials --resource-group infra-rg-dev-1952 --name infra-aks-dev-1952
+        az aks get-credentials --resource-group infra-rg-dev-5690 --name infra-aks-dev-5690
 
     - name: Deploy to AKS
       run: |

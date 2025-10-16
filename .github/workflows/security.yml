@@ -31,17 +31,8 @@ jobs:
         run: |
           az acr login --name infraacr1952
 
-      # - name: Build Docker image
-      #   run: docker build -t react-portfolio-app:v1 ./application
-
-      - name: Run Trivy vulnerability scanner
-        id: trivy
-        uses: aquasecurity/trivy-action@0.14.0
-        with:
-          image-ref: "infraacr1952.azurecr.io/react-portfolio-app:v1"
-          format: 'table'
-          exit-code: '0'
-          ignore-unfixed: true
+      - name: Pull image from ACR
+        run: docker pull infraacr1952.azurecr.io/react-portfolio-app:v1
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
@@ -51,7 +42,16 @@ jobs:
             -Dsonar.login=${{ secrets.SONAR_TOKEN }}
             -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
             -Dsonar.organization=${{ secrets.SONAR_ORG }}
-            -Dsonar.host.url=https://sonarcloud.io            
+            -Dsonar.host.url=https://sonarcloud.io   
+
+      - name: Run Trivy vulnerability scanner
+        id: trivy
+        uses: aquasecurity/trivy-action@0.14.0
+        with:
+          image-ref: "infraacr1952.azurecr.io/react-portfolio-app:v1"
+          format: 'table'
+          exit-code: '0'
+          ignore-unfixed: true         
 
       # - name: Send Email Alert (via SMTP - iCloud example)
       #   if: steps.check_vulns.outputs.found == 'true'

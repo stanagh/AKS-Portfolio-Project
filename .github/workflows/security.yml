@@ -38,11 +38,10 @@ jobs:
         id: trivy
         uses: aquasecurity/trivy-action@0.14.0
         with:
-          image-ref: 'infraacr1952.azurecr.io/react-portfolio-app:v1'
+          image-ref: "infraacr1952.azurecr.io/react-portfolio-app:v1"
           format: 'table'
           exit-code: '0'
           ignore-unfixed: true
-          output: trivy-report.txt
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master

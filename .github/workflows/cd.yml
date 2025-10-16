@@ -24,8 +24,8 @@ jobs:
         run: |
           az acr login --name infraacr1952
 
-      - name: Build Docker image
-        run: docker build -t react-portfolio-app:v1 ./application
+      # - name: Build Docker image
+      #   run: docker build -t react-portfolio-app:v1 ./application
 
       - name: Run Trivy vulnerability scanner
         id: trivy
@@ -40,25 +40,25 @@ jobs:
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         with:
-          projectBaseDir: . 
+          projectBaseDir: ./application 
           args: >
             -Dsonar.login=${{ secrets.SONAR_TOKEN }}
             -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
             -Dsonar.organization=${{ secrets.SONAR_ORG }}
             -Dsonar.host.url=https://sonarcloud.io            
 
-      - name: Send Email Alert (via SMTP - iCloud example)
-        if: steps.check_vulns.outputs.found == 'true'
-        uses: dawidd6/action-send-mail@v3
-        with:
-          server_address: smtp.mail.me.com
-          server_port: 587
-          username: ${{ secrets.ICLOUD_EMAIL }}
-          password: ${{ secrets.ICLOUD_APP_PASSWORD }}
-          subject: "🚨 Security Alert: Vulnerabilities in Docker Image"
-          to: "your_email@icloud.com"
-          from: "CI Pipeline <${{ secrets.ICLOUD_EMAIL }}>"
-          body: |
-            Vulnerabilities were found in the latest Docker build.
-            See attached Trivy report.
-          attachments: trivy-report.txt
+      # - name: Send Email Alert (via SMTP - iCloud example)
+      #   if: steps.check_vulns.outputs.found == 'true'
+      #   uses: dawidd6/action-send-mail@v3
+      #   with:
+      #     server_address: smtp.mail.me.com
+      #     server_port: 587
+      #     username: ${{ secrets.ICLOUD_EMAIL }}
+      #     password: ${{ secrets.ICLOUD_APP_PASSWORD }}
+      #     subject: "🚨 Security Alert: Vulnerabilities in Docker Image"
+      #     to: "your_email@icloud.com"
+      #     from: "CI Pipeline <${{ secrets.ICLOUD_EMAIL }}>"
+      #     body: |
+      #       Vulnerabilities were found in the latest Docker build.
+      #       See attached Trivy report.
+      #     attachments: trivy-report.txt

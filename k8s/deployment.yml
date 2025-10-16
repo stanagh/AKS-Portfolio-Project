@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: my-app-container
-          image: infraacr5690.azurecr.io/react-portfolio-app:v1
+          image: infraacr1952.azurecr.io/react-portfolio-app:v1
           ports:
             - containerPort: 3000
           resources:
@@ -26,5 +26,3 @@ spec:
             limits:
               cpu: "500m"
               memory: "256Mi"
-      # imagePullSecrets:
-      #   - name: acr-secret

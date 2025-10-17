@@ -46,16 +46,25 @@ jobs:
         - name: Terraform Apply
           run: terraform apply --auto-approve      
 
-# Notify Microsoft Teams
         - name: Send notification to MS Teams
-          if: always() # runs regardless of success/failure
+          if: always()
           uses: toko-bifrost/ms-teams-deploy-card@master
           with:
             github-token: ${{ secrets.GITHUB_TOKEN }}
             webhook-uri: ${{ secrets.TEAMS_WEBHOOK_URL }}
-            title: "GitHub Actions: ${{ github.workflow }}"
-            description: |
-              **Repository:** ${{ github.repository }}
-              **Branch:** ${{ github.ref_name }}
-              **Status:** ${{ job.status }}
-              **Run ID:** [${{ github.run_id }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
+            card-layout-exit: complete
+            show-on-exit: true
+            custom-facts: |
+              - name: Workflow
+                value: ${{ github.workflow }}
+              - name: Status
+                value: ${{ job.status == 'success' && 'Success' || 'Failed' }}
+              - name: Repository
+                value: ${{ github.repository }}
+              - name: Branch
+                value: ${{ github.ref_name }}
+              - name: Triggered by
+                value: ${{ github.actor }}
+              - name: Run Logs
+                value: [View Logs](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
+

@@ -41,4 +41,38 @@ jobs:
         - name: Terraform Destroy
           if: ${{ github.event.inputs.action == 'yes' }}
           run: terraform destroy --auto-approve
+
+        - name: Send notification to MS Teams
+          if: always() # runs regardless of success/failure
+          env:
+            WEBHOOK: ${{ secrets.TEAMS_WEBHOOK_URL }}
+            WORKFLOW: ${{ github.workflow }}
+            REPO: ${{ github.repository }}
+            BRANCH: ${{ github.ref_name }}
+            STATUS: ${{ job.status }}
+            RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          run: |
+            payload=$(cat <<'EOF'
+            {
+              "@type": "MessageCard",
+              "@context": "http://schema.org/extensions",
+              "summary": "GitHub Actions: $WORKFLOW",
+              "themeColor": "0076D7",
+              "title": "GitHub Actions: $WORKFLOW",
+              "sections": [
+                {
+                  "activityTitle": "Repository: $REPO",
+                  "facts": [
+                    {"name": "Branch", "value": "$BRANCH"},
+                    {"name": "Status", "value": "$STATUS"},
+                    {"name": "Run ID", "value": "$RUN_URL"}
+                  ],
+                  "markdown": true
+                }
+              ]
+            }
+            EOF
+            )
+            curl -s -H "Content-Type: application/json" -d "$payload" "$WEBHOOK"
+
     

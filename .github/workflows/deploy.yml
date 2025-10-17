@@ -46,3 +46,11 @@ jobs:
       run: |
         kubectl get pods
         kubectl get services
+
+    - name: Send notification to MS Teams
+      uses: toko-bifrost/ms-teams-deploy-card@master
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        webhook-uri: ${{ secrets.TEAMS_WEBHOOK_URL }}
+        card-layout-exit: complete
+        show-on-exit: true

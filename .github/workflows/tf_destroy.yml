@@ -50,16 +50,3 @@ jobs:
             webhook-uri: ${{ secrets.TEAMS_WEBHOOK_URL }}
             card-layout-exit: complete
             show-on-exit: true
-            # custom-facts: |
-            #   - name: Workflow
-            #     value: ${{ github.workflow }}
-            #   - name: Status
-            #     value: ${{ job.status == 'success' && 'Success' || 'Failed' }}
-            #   - name: Repository
-            #     value: ${{ github.repository }}
-            #   - name: Branch
-            #     value: ${{ github.ref_name }}
-            #   - name: Triggered by
-            #     value: ${{ github.actor }}
-            #   - name: Run Logs
-            #     value: [View Logs](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})

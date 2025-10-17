@@ -53,18 +53,13 @@ jobs:
           exit-code: '0'
           ignore-unfixed: true         
 
-      # - name: Send Email Alert (via SMTP - iCloud example)
-      #   if: steps.check_vulns.outputs.found == 'true'
-      #   uses: dawidd6/action-send-mail@v3
-      #   with:
-      #     server_address: smtp.mail.me.com
-      #     server_port: 587
-      #     username: ${{ secrets.ICLOUD_EMAIL }}
-      #     password: ${{ secrets.ICLOUD_APP_PASSWORD }}
-      #     subject: "🚨 Security Alert: Vulnerabilities in Docker Image"
-      #     to: "your_email@icloud.com"
-      #     from: "CI Pipeline <${{ secrets.ICLOUD_EMAIL }}>"
-      #     body: |
-      #       Vulnerabilities were found in the latest Docker build.
-      #       See attached Trivy report.
-      #     attachments: trivy-report.txt
+      - name: Send notification to MS Teams
+        if: always()
+        uses: toko-bifrost/ms-teams-deploy-card@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          webhook-uri: ${{ secrets.TEAMS_WEBHOOK_URL }}
+          card-layout-exit: complete
+          show-on-exit: true
+
+

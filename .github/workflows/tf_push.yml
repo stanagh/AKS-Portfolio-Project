@@ -46,15 +46,16 @@ jobs:
         - name: Terraform Apply
           run: terraform apply --auto-approve      
 
-        - name: Notify MS Teams 
-          if: always()
-          uses: tokonoma/teams-notify@v1.3.0
+# Notify Microsoft Teams
+        - name: Send notification to MS Teams
+          if: always() # runs regardless of success/failure
+          uses: toko-bifrost/ms-teams-deploy-card@master
           with:
             github-token: ${{ secrets.GITHUB_TOKEN }}
-            webhook-uri: ${{ secrets.MS_TEAMS_WEBHOOK_URL }}
-            message: 'Terraform apply has been completed successfully.'
-            title: 'Terraform Notification'
+            webhook-uri: ${{ secrets.TEAMS_WEBHOOK_URL }}
+            title: "GitHub Actions: ${{ github.workflow }}"
             description: |
-              **Status:** ${{ job.status }}
+              **Repository:** ${{ github.repository }}
               **Branch:** ${{ github.ref_name }}
-              **Run ID:** [View Logs](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
+              **Status:** ${{ job.status }}
+              **Run ID:** [${{ github.run_id }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})

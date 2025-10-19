@@ -5,15 +5,22 @@ resource "random_integer" "suffix" {
   max = 9999
 }
 
+resource "random_password" "grafana_admin" {
+  length  = 16
+  special = true
+}
+
 resource "azurerm_resource_group" "rg" {
   name     = local.rg_name
   location = local.location
   tags     = local.tags
 }
 
+
+
 module "storage" {
   source                   = "./modules/storage"
-  storage_account_name     = "${local.environment}-storage-${local.prefix}-${random_integer.suffix.result}"
+  storage_account_name     = "${local.location_short}storage${local.environment}${random_integer.suffix.result}"
   resource_group_name      = azurerm_resource_group.rg.name
   location                 = local.location
   account_tier             = "Standard"
@@ -24,19 +31,21 @@ module "storage" {
 
 module "keyvault" {
   source                      = "./modules/keyvault"
-  key_vault_name              = "${local.environment}-kv-${local.prefix }-${random_integer.suffix.result}"
+  key_vault_name              = "${local.location_short}kv${local.environment}-${random_integer.suffix.result}"
   location                    = local.location
   resource_group_name         = azurerm_resource_group.rg.name
   enabled_for_disk_encryption = true
   tags                        = local.tags
   soft_delete_retention_days  = 7
   sku_name                    = "standard"
+  key_vault_secret_grafana    = "grafana-admin-password"
+  grafana_admin_password      = random_password.grafana_admin.result
   tenant_id                   = data.azurerm_client_config.current.tenant_id
 }
 
 module "acr" {
   source              = "./modules/acr"
-  acr_name            = "${local.environment}-acr-${local.prefix}-${random_integer.suffix.result}"
+  acr_name            = "${local.location_short}acr${local.environment}${random_integer.suffix.result}"
   resource_group_name = azurerm_resource_group.rg.name
   location            = local.location
   sku                 = "Standard"
@@ -53,7 +62,7 @@ resource "azurerm_role_assignment" "acr_pull" {
 
 module "aks" {
   source                            = "./modules/aks"
-  aks_cluster_name                  = "${local.environment}-aks-${local.prefix}-${random_integer.suffix.result}"
+  aks_cluster_name                  = "${local.location_short}-aks-${local.environment}-${random_integer.suffix.result}"
   resource_group_name               = azurerm_resource_group.rg.name
   location                          = local.location
   dns_prefix                        = "${local.prefix}-aks-${local.environment}"
@@ -86,7 +95,8 @@ module "aks_monitoring" {
   grafana_chart           = "grafana"
   grafana_release_name    = "grafana"
   namespace               = "monitoring"
-  grafana_admin_password  = kubernetes_secret.grafana_admin_password.metadata[0].name
-  depends_on              = [module.aks]
+  grafana_admin_password  = random_password.grafana_admin.result
+  depends_on              = [module.aks, module.keyvault]
 }
+
 

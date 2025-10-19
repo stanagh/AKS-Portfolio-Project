@@ -58,3 +58,16 @@ variable "default_action" {
   default     = "Allow"
 
 }
+
+variable "key_vault_secret_grafana" {
+  description = "The name of the Key Vault secret to store the Grafana admin password."
+  type        = string
+  default     = "grafana-admin-password"
+}
+
+
+variable "grafana_admin_password" {
+  description = "The Grafana admin password to store in Key Vault."
+  type        = string
+  default = "random_password.grafana_admin.result"
+}

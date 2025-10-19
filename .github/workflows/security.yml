@@ -43,11 +43,7 @@ jobs:
       - name: Log in to ACR
         run: |
           az acr login --name "${{ env.ACR_NAME }}"
-<<<<<<< HEAD
 
-=======
-          
->>>>>>> 5450ed8df5440c5f93e94b8bc407e684fcbfa759
       - name: Pull image from ACR
         run: docker pull "${{ env.ACR_NAME }}.azurecr.io/react-portfolio-app:v1"
 

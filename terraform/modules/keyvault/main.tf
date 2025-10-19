@@ -33,3 +33,9 @@ resource "azurerm_key_vault" "keyvault" {
     ]
   }
 }
+
+resource "azurerm_key_vault_secret" "grafana" {
+  name         = var.key_vault_secret_grafana
+  value        = var.grafana_admin_password
+  key_vault_id = azurerm_key_vault.keyvault.id
+}

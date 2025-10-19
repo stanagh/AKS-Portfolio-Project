@@ -69,5 +69,5 @@ variable "key_vault_secret_grafana" {
 variable "grafana_admin_password" {
   description = "The Grafana admin password to store in Key Vault."
   type        = string
-  default = "random_password.grafana_admin.result"
+  default     = "random_password.grafana_admin.result"
 }

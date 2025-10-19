@@ -1,8 +1,8 @@
 locals {
 
-  prefix      = "infra"
-  environment = "prod"
-  location    = "uksouth"
+  prefix         = "infra"
+  environment    = "prod"
+  location       = "uksouth"
   location_short = "uks"
 
   rg_name = "${local.location_short}-rg-${local.environment}-${random_integer.suffix.result}"

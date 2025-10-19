@@ -22,7 +22,7 @@ jobs:
       uses: actions/download-artifact@v4
       with:
         name: terraform-outputs
-        path: ./terraform_outputs
+        path: ./terraform_outputs.txt
 
     - name: Read Terraform outputs
       run: |

@@ -63,7 +63,7 @@ jobs:
           uses: actions/upload-artifact@v4
           with:
             name: terraform-outputs
-            path: terraform_outputs.txt
+            path: terraform_outputs
 
         - name: Send notification to MS Teams
           if: always()

@@ -16,8 +16,6 @@ resource "azurerm_resource_group" "rg" {
   tags     = local.tags
 }
 
-
-
 module "storage" {
   source                   = "./modules/storage"
   storage_account_name     = "${local.location_short}storage${local.environment}${random_integer.suffix.result}"

@@ -50,14 +50,10 @@ jobs:
           id: tf_output
           run: |
             echo "RG_NAME=$(terraform output -raw resource_group_name)" >> $GITHUB_ENV
-            echo "AKS_CLUSTER_NAME=$(terraform output -raw aks_cluster_name)" >> $GITHUB_ENV
-            echo "ACR_NAME=$(terraform output -raw acr_name)" >> $GITHUB_ENV
-
+        
         - name: Write Terraform outputs to file
           run: |
             echo "resource_group_name=${{ env.RG_NAME }}" >> terraform_outputs.txt
-            echo "aks_cluster_name=${{ env.AKS_CLUSTER_NAME }}" >> terraform_outputs.txt
-            echo "acr_name=${{ env.ACR_NAME }}" >> terraform_outputs.txt
 
         - name: Upload Terraform workflow artifacts
           uses: actions/upload-artifact@v4

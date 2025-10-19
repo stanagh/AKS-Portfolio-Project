@@ -27,16 +27,15 @@ jobs:
     - name: Download Terraform workflow artifacts
       uses: actions/download-artifact@v4
       with:
-        name: my_artifact
+        name: terraform-outputs
         run-id: ${{ github.event.workflow_run.id }}
         github-token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Read Terraform outputs
       run: |
         source ./terraform_outputs/terraform_output.txt
-        echo "ACR_NAME=$acr_name" >> $GITHUB_ENV
         echo "RG_NAME=$resource_group_name" >> $GITHUB_ENV
-        echo "AKS_NAME=$aks_name" >> $GITHUB_ENV
+
 
     - name: Log in to Azure
       uses: azure/login@v2

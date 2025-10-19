@@ -53,7 +53,7 @@ jobs:
 
     - name: Set AKS CLI 
       run: |
-        az aks get-credentials --resource-group "${{ env.RG_NAME }}" --name "${{ env.AKS_NAME }}"
+        az aks get-credentials --resource-group "${{ env.RESOURCE_GROUP_NAME }}" --name "${{ env.AKS_NAME }}"
 
     - name: Deploy to AKS
       run: |

@@ -19,10 +19,11 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Download Terraform workflow artifacts
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v5
       with:
-        name: terraform-outputs
-        path: ./terraform_outputs
+        name: my_artifact
+        run-id: ${{ github.event.workflow_run.id }}
+        github-token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Read Terraform outputs
       run: |

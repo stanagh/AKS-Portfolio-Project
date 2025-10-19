@@ -4,7 +4,7 @@ locals {
   environment = "dev"
   location    = "uksouth"
 
-  rg_name = "${local.prefix}-rg-${local.environment}-${random_integer.suffix.result}"
+  rg_name = "${local.environment}-rg-${local.prefix}-${random_integer.suffix.result}"
 
   tags = {
     environment = local.environment

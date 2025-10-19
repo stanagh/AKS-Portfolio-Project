@@ -14,8 +14,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    
     - name: Checkout repository
       uses: actions/checkout@v3
+
+    - name: Download Terraform workflow artifacts
+      uses: actions/download-artifact@v3
+      with:
+        name: terraform-outputs
+        path: ./terraform_outputs
+
+    - name: Read Terraform outputs
+      run: |
+        source ./terraform_outputs/terraform_output.txt
+        echo "ACR_NAME=$acr_name" >> $GITHUB_ENV
+        echo "RG_NAME=$resource_group_name" >> $GITHUB_ENV
+        echo "AKS_NAME=$aks_name" >> $GITHUB_ENV
 
     - name: Log in to Azure
       uses: azure/login@v2
@@ -24,20 +38,21 @@ jobs:
 
     - name: Log in to ACR 
       run: |
-        az acr login --name infraacr1952
+        az acr login --name "${{ env.ACR_NAME }}"
     
     - name: Docker build and push Docker image to ACR
       run: |
-        docker build -t infraacr1952.azurecr.io/react-portfolio-app:v1 ./application
-        docker push infraacr1952.azurecr.io/react-portfolio-app:v1
+        docker build -t "${{ env.ACR_NAME }}.azurecr.io/react-portfolio-app:v1" ./application
+        docker push "${{ env.ACR_NAME }}.azurecr.io/react-portfolio-app:v1"
 
-    - name: Set AKS CLI
+    - name: Set AKS CLI 
       run: |
-        az aks get-credentials --resource-group infra-rg-dev-5690 --name infra-aks-dev-5690
+        az aks get-credentials --resource-group "${{ env.RG_NAME }}" --name "${{ env.AKS_NAME }}"
 
     - name: Deploy to AKS
       run: |
         kubectl apply -f k8s/deployment.yml
+        kubectl set image deployment/my-app-deployment my-app-container="${{ env.ACR_NAME }}.azurecr.io/react-portfolio-app:v1"
         kubectl apply -f k8s/service.yml
         kubectl apply -f k8s/ingress.yml
         kubectl get all

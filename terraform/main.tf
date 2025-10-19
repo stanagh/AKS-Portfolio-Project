@@ -13,7 +13,7 @@ resource "azurerm_resource_group" "rg" {
 
 module "storage" {
   source                   = "./modules/storage"
-  storage_account_name     = "${local.prefix}storage${random_integer.suffix.result}"
+  storage_account_name     = "${local.environment}-storage-${local.prefix}-${random_integer.suffix.result}"
   resource_group_name      = azurerm_resource_group.rg.name
   location                 = local.location
   account_tier             = "Standard"
@@ -24,7 +24,7 @@ module "storage" {
 
 module "keyvault" {
   source                      = "./modules/keyvault"
-  key_vault_name              = "${local.prefix}-kv-${local.environment}-${random_integer.suffix.result}"
+  key_vault_name              = "${local.environment}-kv-${local.prefix }-${random_integer.suffix.result}"
   location                    = local.location
   resource_group_name         = azurerm_resource_group.rg.name
   enabled_for_disk_encryption = true
@@ -36,7 +36,7 @@ module "keyvault" {
 
 module "acr" {
   source              = "./modules/acr"
-  acr_name            = "${local.prefix}acr${random_integer.suffix.result}"
+  acr_name            = "${local.environment}-acr-${local.prefix}-${random_integer.suffix.result}"
   resource_group_name = azurerm_resource_group.rg.name
   location            = local.location
   sku                 = "Standard"
@@ -53,7 +53,7 @@ resource "azurerm_role_assignment" "acr_pull" {
 
 module "aks" {
   source                            = "./modules/aks"
-  aks_cluster_name                  = "${local.prefix}-aks-${local.environment}-${random_integer.suffix.result}"
+  aks_cluster_name                  = "${local.environment}-aks-${local.prefix}-${random_integer.suffix.result}"
   resource_group_name               = azurerm_resource_group.rg.name
   location                          = local.location
   dns_prefix                        = "${local.prefix}-aks-${local.environment}"
@@ -70,11 +70,23 @@ module "dns" {
   location            = local.location
   dns_name            = "stanley-portfolio.com"
   a_record_name       = "dev"
-  public_ip_name      = "${local.prefix}-pip-${local.environment}-${random_integer.suffix.result}"
+  public_ip_name      = "${local.environment}-pip-${local.prefix}-${random_integer.suffix.result}"
   public_ip_sku       = "Standard"
   ttl                 = 300
   tags                = local.tags
 }
 
-
+module "aks_monitoring" {
+  source                  = "./modules/k8s_monitoring"
+  prometheus_release_name = "prometheus"
+  prometheus_repository   = "https://prometheus-community.github.io/helm-charts"
+  prometheus_chart        = "kube-prometheus-stack"
+  create_namespace        = true
+  grafana_reportory       = "https://grafana.github.io/helm-charts"
+  grafana_chart           = "grafana"
+  grafana_release_name    = "grafana"
+  namespace               = "monitoring"
+  grafana_admin_password  = kubernetes_secret.grafana_admin_password.metadata[0].name
+  depends_on              = [module.aks]
+}
 

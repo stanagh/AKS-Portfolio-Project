@@ -41,6 +41,13 @@ module "keyvault" {
   tenant_id                   = data.azurerm_client_config.current.tenant_id
 }
 
+resource "azurerm_role_assignment" "keyvault_access" {
+  principal_id         = data.azurerm_client_config.current.object_id
+  role_definition_name = "Key Vault Administrator"
+  scope                = module.keyvault.key_vault_id
+  depends_on           = [module.keyvault]
+}
+
 module "acr" {
   source              = "./modules/acr"
   acr_name            = "${local.location_short}acr${local.environment}${random_integer.suffix.result}"

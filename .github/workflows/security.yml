@@ -1,32 +1,19 @@
 name: Docker Image Security Scan
 
 on:
-  # workflow_run:
-  #   workflows: ["Build and Push to ACR"]
-  #   types:
-  #     - completed
-    workflow_dispatch:
-     inputs:
-      action:
-        description: 'Select action (yes or no)'
-        required: true
-        default: 'yes'
-
+  workflow_run:
+    workflows: ["Build and Push to ACR"]
+    types:
+      - completed
 
 jobs:
   scan:
     runs-on: ubuntu-latest
 
-
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
       
-      - name: Download Terraform workflow artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: terraform-outputs
-          path: ./terraform_outputs
       - name: Login to Azure
         uses: azure/login@v1
         with:
@@ -34,10 +21,10 @@ jobs:
 
       - name: Log in to ACR
         run: |
-          az acr login --name "${{ env.ACR_NAME }}"
+          az acr login --name infraacrdev
 
       - name: Pull image from ACR
-        run: docker pull "${{ env.ACR_NAME }}.azurecr.io/react-portfolio-app:v1"
+        run: docker pull infraacrdev.azurecr.io/react-portfolio-app:v1
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
@@ -53,7 +40,7 @@ jobs:
         id: trivy
         uses: aquasecurity/trivy-action@0.14.0
         with:
-          image-ref: "${{ env.ACR_NAME }}.azurecr.io/react-portfolio-app:v1"
+          image-ref: "infraacrdev.azurecr.io/react-portfolio-app:v1"
           format: 'table'
           exit-code: '0'
           ignore-unfixed: true         

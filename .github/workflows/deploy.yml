@@ -1,28 +1,22 @@
 name: Build and Push to ACR
 
 on:
-    # push:
-  #   paths:
-  #     - 'application/**'  # Trigger on changes in the application directory
-  workflow_run:
-    workflows: ["Terraform infrastructure push"]
-    types:
+    push:
+     paths:
+      - 'application/**'  # Trigger on changes in the application directory
+    workflow_run:
+     workflows: ["Terraform infrastructure push"]
+     types:
       - completed
-  workflow_dispatch:
-    inputs:
-      action:
-        description: 'Select action (yes or no)'
-        required: true
-        default: 'yes'    
 
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
 
     steps:
-    
     - name: Checkout repository
       uses: actions/checkout@v3
+
 
     - name: Log in to Azure
       uses: azure/login@v2
@@ -31,21 +25,20 @@ jobs:
 
     - name: Log in to ACR 
       run: |
-        az acr login --name "${{ env.ACR_NAME }}"
+        az acr login --name infraacrdev
     
     - name: Docker build and push Docker image to ACR
       run: |
-        docker build -t "${{ env.ACR_NAME }}.azurecr.io/react-portfolio-app:v1" ./application
-        docker push "${{ env.ACR_NAME }}.azurecr.io/react-portfolio-app:v1"
+        docker build -t infraacrdev.azurecr.io/react-portfolio-app:v1 ./application
+        docker push infraacrdev.azurecr.io/react-portfolio-app:v1
 
     - name: Set AKS CLI 
       run: |
-        az aks get-credentials --resource-group "${{ env.RESOURCE_GROUP_NAME }}" --name "${{ env.AKS_NAME }}"
+        az aks get-credentials --resource-group infra-rg --name infraaks
 
     - name: Deploy to AKS
       run: |
         kubectl apply -f k8s/deployment.yml
-        kubectl set image deployment/my-app-deployment my-app-container="${{ env.ACR_NAME }}.azurecr.io/react-portfolio-app:v1"
         kubectl apply -f k8s/service.yml
         kubectl apply -f k8s/ingress.yml
         kubectl get all

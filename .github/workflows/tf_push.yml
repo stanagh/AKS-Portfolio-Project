@@ -1,9 +1,9 @@
 name: Terraform infrastructure push
 
 on:
-  # push:
-  #   paths:
-  #     - 'terraform/**'  # Trigger on changes in the terraform directory
+  push:
+    paths:
+      - 'terraform/**'  # Trigger on changes in the terraform directory
   workflow_dispatch:
     inputs:
       action:
@@ -45,7 +45,7 @@ jobs:
 
         - name: Terraform Apply
           run: terraform apply --auto-approve     
-          
+
         - name: Send notification to MS Teams
           if: always()
           uses: toko-bifrost/ms-teams-deploy-card@master

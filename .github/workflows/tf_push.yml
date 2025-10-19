@@ -60,6 +60,7 @@ jobs:
           with:
             name: terraform-outputs
             path: terraform_outputs.txt
+            retention-days: 3
 
         - name: Send notification to MS Teams
           if: always()

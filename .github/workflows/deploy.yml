@@ -1,4 +1,4 @@
-name: Build and Push to ACR
+ name: Build and Push to ACR
 
 on:
     # push:
@@ -22,7 +22,7 @@ jobs:
       uses: actions/download-artifact@v4
       with:
         name: terraform-outputs
-        path: ./terraform_outputs.txt
+        path: ./terraform_outputs
 
     - name: Read Terraform outputs
       run: |

@@ -4,10 +4,10 @@ on:
     # push:
   #   paths:
   #     - 'application/**'  # Trigger on changes in the application directory
-  # workflow_run:
-  #   workflows: ["Terraform infrastructure push"]
-  #   types:
-  #     - completed
+  workflow_run:
+    workflows: ["Terraform infrastructure push"]
+    types:
+      - completed
   workflow_dispatch:
     inputs:
       action:

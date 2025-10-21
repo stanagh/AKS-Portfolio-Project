@@ -39,7 +39,7 @@ module "keyvault" {
   key_vault_secret_grafana    = "grafana-admin-password"
   grafana_admin_password      = random_password.grafana_admin.result
   tenant_id                   = data.azurerm_client_config.current.tenant_id
-  roledefinition_name         = "Key Secret Officer"
+  roledefinition_name         = "Key Vault Secret Officer"
 }
 
 

@@ -39,7 +39,6 @@ module "keyvault" {
   key_vault_secret_grafana    = "grafana-admin-password"
   grafana_admin_password      = random_password.grafana_admin.result
   tenant_id                   = data.azurerm_client_config.current.tenant_id
-  role_based_access_control_enabled = true
   rbac_authorization_enabled = true
 }
 

@@ -22,6 +22,7 @@ resource "azurerm_role_assignment" "key_vault_access" {
   principal_id         = var.tenant_id
   role_definition_name = var.roledefinition_name
   scope                = azurerm_key_vault.keyvault.id
+  depends_on = [azurerm_key_vault.keyvault]
    
 }
 

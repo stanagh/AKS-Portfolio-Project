@@ -77,3 +77,9 @@ variable "roledefinition_name" {
   type        = string
   default     = "Key Vault Administrator"
 }
+
+variable "rbac_authorization_enabled" {
+  description ="Enable RBAC"
+  type = bool
+  default = true
+}

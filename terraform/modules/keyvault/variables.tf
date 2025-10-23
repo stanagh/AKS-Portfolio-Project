@@ -72,10 +72,10 @@ variable "grafana_admin_password" {
   default     = "random_password.grafana_admin.result"
 }
 
-variable "role_definition_name" {
-  description = "The name of the role definition to assign to the principal."
-  type        = string
-}
+# variable "role_definition_name" {
+#   description = "The name of the role definition to assign to the principal."
+#   type        = string
+# }
 
 variable "rbac_authorization_enabled" {
   description ="Enable RBAC"
@@ -83,7 +83,7 @@ variable "rbac_authorization_enabled" {
   default = true
 }
 
-variable "principal_id" {
-  description = "The principal id of the service principal"
-  type = string
-}
+# variable "principal_id" {
+#   description = "The principal id of the service principal"
+#   type = string
+# }

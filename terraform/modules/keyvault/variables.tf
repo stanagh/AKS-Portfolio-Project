@@ -82,3 +82,8 @@ variable "rbac_authorization_enabled" {
   type = bool
   default = true
 }
+
+variable "principal_id" {
+  description = "The principal id of the service principal"
+  type = string
+}

@@ -19,10 +19,9 @@ resource "azurerm_key_vault" "keyvault" {
 }
 
 resource "azurerm_role_assignment" "key_vault_access" {
-  principal_id         = var.tenant_id
+  principal_id         = var.principal_id
   role_definition_name = var.role_definition_name
-  scope                = azurerm_key_vault.keyvault.id
-   
+  scope                = azurerm_key_vault.keyvault.id  
 }
 
 resource "azurerm_key_vault_secret" "grafana" {

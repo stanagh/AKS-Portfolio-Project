@@ -41,7 +41,7 @@ jobs:
         uses: aquasecurity/trivy-action@0.14.0
         with:
           image-ref: "infraacrdev.azurecr.io/react-portfolio-app:v1"
-          format: 'table'
+          format: 'cli'
           exit-code: '0'
           ignore-unfixed: true         
 

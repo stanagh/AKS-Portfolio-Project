@@ -97,6 +97,10 @@ module "aks_monitoring" {
   grafana_release_name    = "grafana"
   namespace               = "monitoring"
   grafana_admin_password  = random_password.grafana_admin.result
+  nginx_release_name     = "nginx-ingress"
+  nginx_repository        = "https://kubernetes.github.io/ingress-nginx"
+  nginx_chart             = "ingress-nginx"
+  nginx_ingress_namespace = "ingress-nginx"
   depends_on              = [module.aks, module.keyvault]
 }
 

@@ -4,18 +4,28 @@ resource "helm_release" "prometheus" {
   chart            = var.prometheus_chart
   create_namespace = var.create_namespace
   namespace        = var.namespace
+  set = [ {
+    name  = "prometheus.ingress.enabled"
+    value = "true"
+  },
+  {
+    name  = "prometheus.ingress.hosts[0]"
+    value = "prometheus.example.com"
+  }, 
+  {
+    name = "service.type"
+    value = "LoadBalancer"
+  }
+]
 }
 
-# resource "kubernetes_secret" "grafana_admin_password" {
-#   metadata {
-#     name      = "grafana-admin-password"
-#     namespace = var.namespace
-#   }
+resource "helm_release" "nginx_ingress" {
+  name       = var.nginx_release_name
+  repository = var.nginx_repository
+  chart      = var.nginx_chart
+  namespace  = var.nginx_ingress_namespace
+}
 
-#   data = {
-#     password = var.grafana_admin_password
-#   }
-# }
 
 resource "helm_release" "grafana" {
   name             = var.grafana_release_name
@@ -24,6 +34,18 @@ resource "helm_release" "grafana" {
   create_namespace = var.create_namespace
   namespace        = var.namespace
   set = [
+    {
+      name  = "ingress.enabled"
+      value = "true"
+    },
+    {
+      name  = "ingress.annotations.kubernetes\\.io/ingress\\.class"
+      value = "nginx"
+    },
+    {
+      name  = "ingress.hosts[0]"
+      value = "grafana.example.com"
+    },
     {
       name  = "adminPassword"
       value = var.grafana_admin_password

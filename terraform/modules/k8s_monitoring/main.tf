@@ -4,32 +4,33 @@ resource "helm_release" "prometheus" {
   chart            = var.prometheus_chart
   create_namespace = var.create_namespace
   namespace        = var.namespace
-  set = [ {
-    name  = "prometheus.ingress.enabled"
-    value = "true"
-  },
-  {
-    name  = "prometheus.ingress.hosts[0]"
-    value = "prometheus.example.com"
-  }, 
-  {
-    name = "service.type"
-    value = "LoadBalancer"
-  }
-]
+  set = [
+    {
+      name  = "prometheus.ingress.enabled"
+      value = "true"
+    },
+    {
+      name  = "prometheus.ingress.hosts[0]"
+      value = "prometheus.example.com"
+    }, 
+    {
+      name  = "service.type"
+      value = "LoadBalancer" # optional
+    }
+  ]
 }
 
 resource "helm_release" "nginx_ingress" {
-  name       = var.nginx_release_name
-  repository = var.nginx_repository
-  chart      = var.nginx_chart
-  namespace  = var.nginx_ingress_namespace
+  name             = var.nginx_release_name
+  repository       = var.nginx_repository
+  chart            = var.nginx_chart
+  namespace        = var.nginx_ingress_namespace
+  create_namespace = true
 }
-
 
 resource "helm_release" "grafana" {
   name             = var.grafana_release_name
-  repository       = var.grafana_reportory
+  repository       = var.grafana_repository
   chart            = var.grafana_chart
   create_namespace = var.create_namespace
   namespace        = var.namespace

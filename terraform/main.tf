@@ -92,12 +92,12 @@ module "aks_monitoring" {
   prometheus_repository   = "https://prometheus-community.github.io/helm-charts"
   prometheus_chart        = "kube-prometheus-stack"
   create_namespace        = true
-  grafana_reportory       = "https://grafana.github.io/helm-charts"
+  grafana_repository      = "https://grafana.github.io/helm-charts"
   grafana_chart           = "grafana"
   grafana_release_name    = "grafana"
   namespace               = "monitoring"
   grafana_admin_password  = random_password.grafana_admin.result
-  nginx_release_name     = "nginx-ingress"
+  nginx_release_name      = "nginx-ingress"
   nginx_repository        = "https://kubernetes.github.io/ingress-nginx"
   nginx_chart             = "ingress-nginx"
   nginx_ingress_namespace = "ingress-nginx"

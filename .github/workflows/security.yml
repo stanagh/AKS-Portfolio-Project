@@ -45,6 +45,14 @@ jobs:
           exit-code: '0'
           ignore-unfixed: true         
 
+      - name: Checkov Scan
+        uses: bridgecrewio/checkov-action@master
+        with:
+          directory: './terraform'
+          output_format: 'table'
+          quiet: 'false'
+
+      
       - name: Send notification to MS Teams
         if: always()
         uses: toko-bifrost/ms-teams-deploy-card@master

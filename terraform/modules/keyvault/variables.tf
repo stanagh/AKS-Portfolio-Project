@@ -72,10 +72,9 @@ variable "grafana_admin_password" {
   default     = "random_password.grafana_admin.result"
 }
 
-variable "roledefinition_name" {
+variable "role_definition_name" {
   description = "The name of the role definition to assign to the principal."
   type        = string
-  default     = "Key Vault Administrator"
 }
 
 variable "rbac_authorization_enabled" {

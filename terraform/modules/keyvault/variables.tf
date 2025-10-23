@@ -78,9 +78,9 @@ variable "grafana_admin_password" {
 # }
 
 variable "rbac_authorization_enabled" {
-  description ="Enable RBAC"
-  type = bool
-  default = true
+  description = "Is RBAC Authorization enabled for this Key Vault? Defaults to true."
+  type        = bool
+  default     = true
 }
 
 # variable "principal_id" {

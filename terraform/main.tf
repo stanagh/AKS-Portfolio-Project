@@ -39,11 +39,18 @@ module "keyvault" {
   key_vault_secret_grafana    = "grafana-admin-password"
   grafana_admin_password      = random_password.grafana_admin.result
   tenant_id                   = data.azurerm_client_config.current.tenant_id
-  principal_id = data.azurerm_client_config.current.object_id
+  # principal_id = data.azurerm_client_config.current.object_id
   rbac_authorization_enabled = true
-  role_definition_name = "Key Vault Secrets Officer"
+  # role_definition_name = "Key Vault Secrets Officer"
 }
 
+
+resource "azurerm_role_assignment" "key_vault_access" {
+  principal_id         = data.azurerm_client_config.current.object_id
+  role_definition_name = "Key Vault Secrets officer"
+  scope                = azurerm_key_vault.keyvault.id  
+  depends_on = [module.keyvault]
+}
 
 module "acr" {
   source              = "./modules/acr"

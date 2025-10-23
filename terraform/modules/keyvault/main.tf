@@ -18,11 +18,11 @@ resource "azurerm_key_vault" "keyvault" {
   sku_name = var.sku_name
 }
 
-resource "azurerm_role_assignment" "key_vault_access" {
-  principal_id         = var.principal_id
-  role_definition_name = var.role_definition_name
-  scope                = azurerm_key_vault.keyvault.id  
-}
+# resource "azurerm_role_assignment" "key_vault_access" {
+#   principal_id         = var.principal_id
+#   role_definition_name = var.role_definition_name
+#   scope                = azurerm_key_vault.keyvault.id  
+# }
 
 resource "azurerm_key_vault_secret" "grafana" {
   name         = var.key_vault_secret_grafana

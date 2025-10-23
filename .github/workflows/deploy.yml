@@ -5,14 +5,15 @@ on:
      paths:
       - 'application/**'  # Trigger on changes in the application directory
     workflow_run:
-     workflows: ["Terraform infrastructure push"]
-     types:
+      workflows: ["Terraform infrastructure push"]
+      types:
       - completed
+
 
 jobs:
   build-and-push:
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
-
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
@@ -46,7 +47,13 @@ jobs:
     - name: Verify Deployment
       run: |
         kubectl get pods
+        kubectl get deployments
         kubectl get services
+
+    - name: Verify Monitoring Setup
+      run: |
+        kubectl get pods -n monitoring
+        kubectl get services -n monitoring
 
     - name: Send notification to MS Teams
       uses: toko-bifrost/ms-teams-deploy-card@master

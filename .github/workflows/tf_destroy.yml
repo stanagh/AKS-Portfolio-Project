@@ -7,9 +7,11 @@ on:
         description: 'Type "yes" to confirm destroying infrastructure'
         required: true
         default: 'no' # Default to 'no' to prevent accidental destruction
+        
 
 jobs:
-    terraform-destroy:
+  terraform-destroy:
+        if: ${{ github.event.inputs.action == 'yes' }}
         runs-on: ubuntu-latest
         env:
           ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
@@ -21,7 +23,6 @@ jobs:
             working-directory: ./terraform      
         
         steps:
-
         - name: Checkout repository
           uses: actions/checkout@v4
 
@@ -33,7 +34,7 @@ jobs:
         - name: Login to Azure
           uses: azure/login@v1
           with:
-            creds: ${{ secrets.AZURE_CREDENTIALS }}
+            creds: ${{ secrets.AZURE_CREDENTIALS }}cd
         
         - name: Terraform Init
           run: terraform init 

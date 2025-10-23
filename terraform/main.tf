@@ -48,8 +48,7 @@ module "keyvault" {
 resource "azurerm_role_assignment" "key_vault_access" {
   principal_id         = data.azurerm_client_config.current.object_id
   role_definition_name = "Key Vault Secrets officer"
-  scope                = module.keyvault.id  
-  depends_on = [module.keyvault]
+  scope                = module.keyvault.key_vault_id
 }
 
 module "acr" {

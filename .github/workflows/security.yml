@@ -51,7 +51,7 @@ jobs:
         with:
           directory: './terraform'
           output_format: 'cli'
-          quiet: 'false'
+          quiet: 'true'
 
       
       - name: Send notification to MS Teams

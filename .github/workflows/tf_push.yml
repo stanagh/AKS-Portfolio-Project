@@ -45,6 +45,7 @@ jobs:
             TF_VAR_subscription_id: ${{ secrets.ARM_SUBSCRIPTION_ID }}
 
         - name: Terraform Apply
+          if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.action == 'apply' }}
           run: terraform apply --auto-approve     
 
         - name: Send notification to MS Teams

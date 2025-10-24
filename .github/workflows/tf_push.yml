@@ -40,6 +40,7 @@ jobs:
           run: terraform fmt -recursive ##for subsdirectories
 
         - name: Terraform Plan
+          if: ${{ github.event_name == 'push' || github.event.inputs.action == 'plan' || github.event.inputs.action == 'apply' }}
           run: terraform plan
           env:
             TF_VAR_subscription_id: ${{ secrets.ARM_SUBSCRIPTION_ID }}

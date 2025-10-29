@@ -39,13 +39,13 @@ jobs:
           run: terraform fmt -recursive ##for subsdirectories
 
         - name: Terraform Plan
-          if: ${{  github.event_name == 'workflow_dispatch' && github.event.inputs.action == 'plan' && github.event.inputs.action == 'push' }}
+          if: ${{ github.event_name == 'workflow_dispatch' || github.event.inputs.action == 'plan' || github.event.inputs.action == 'push' }}
           run: terraform plan
           env:
             TF_VAR_subscription_id: ${{ secrets.ARM_SUBSCRIPTION_ID }}
 
         - name: Terraform Apply
-          if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.action == 'apply' && github.event.inputs.action == 'push' }}
+          if: ${{ github.event_name == 'workflow_dispatch' || github.event.inputs.action == 'apply' || github.event.inputs.action == 'push' }}
           run: terraform apply --auto-approve     
 
         - name: Send notification to MS Teams

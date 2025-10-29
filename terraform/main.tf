@@ -78,7 +78,7 @@ module "dns" {
   source              = "./modules/dns"
   resource_group_name = azurerm_resource_group.rg.name
   location            = local.location
-  dns_name            = "stanley-portfolio.com"
+  dns_name            = "test-portfolio.com"
   a_record_name       = "dev"
   public_ip_name      = "${local.environment}-pip-${local.prefix}-${random_integer.suffix.result}"
   public_ip_sku       = "Standard"

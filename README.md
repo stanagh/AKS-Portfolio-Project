@@ -56,7 +56,26 @@ The repo is organised around three domains:
   - Applied the **DRY (Don't Repeat Yourself)** principle by structuring the code into reusable modules, with the root main.tf orchestrating all child modules from a single configuration.
   - Configured a Storage Account as a remote backend for the Terraform state file, enabling secure collaboration through state lockingand seamless integration with CI/CD workflows.
 - ### GitHub Actions 
-    - Used to build the infrastructure through approval or by dinamically detecting any changes made in the terraform directory. 
-    - Automate the Docker image build, pushes it to ACR and run the K8s manifest files to create the micrososervice infrastructure. 
-    - Builds and scan the docker image, scans the project configuration 
+    - Triggers infrastructure builds either through manual approval or by automatically detecting changes in the Terraform directory.
+    - Automates the Docker image build, pushes it to ACR and applies Kubernetes manifest files to deploy the microservice infrastructure.
+    -  Builds and scans Docker images using **Trivy**, analyses Terraform configuration files with **Checkov** and performs vulnerability assessments via **SonarCloud**.
+    - Destroy infrastucture through manual approval to avoid human-error incidents. 
+    - Sends workflow runs alerts to **Microsoft Teams** for improved visibility and traceability.
+    - Utilised GitHub Secrets to securely pass sensitive values into workflows, ensuring they are not exposed in the repository or logs.
+- ### Monitoring and Observability 
+    - Used **Prometheus** for metrics collection.
+    - Deployed **Grafana** for metrics visualisation and interactive dashboards.
+    - To maintain security best practices, the **Grafana admin password** is automatically stored in Azure Key Vault during deployment, preventing any potential password exposure.
+
+## Project screenshots: 
+### All Azure resources
+
+![alt text](image.png)
+
+### 
+
+
+
+
+
 

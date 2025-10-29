@@ -11,7 +11,8 @@ locals {
     environment = local.environment
     location    = local.location
     managed_by  = "terraform"
-    cost_center = "CC-1234"
+    cost_center = "CC-12334"
+    project     = "Project-AKS"
   }
 
 }

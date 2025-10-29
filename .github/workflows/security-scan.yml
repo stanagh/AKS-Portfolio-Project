@@ -2,7 +2,7 @@ name: Security Scan Pipeline
 
 on:
   workflow_run:
-    workflows: ["Build and Push to ACR"]
+    workflows: ["Build and Push Image to ACR"]
     types:
       - completed
 
@@ -52,7 +52,6 @@ jobs:
         with:
           directory: './terraform'
           output_format: 'cli'
-          quiet: 'true'
 
       
       - name: Send notification to MS Teams

@@ -1,4 +1,4 @@
-name: Docker Image Security Scan
+name: Security Scan Pipeline
 
 on:
   workflow_run:

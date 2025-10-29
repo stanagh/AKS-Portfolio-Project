@@ -46,7 +46,7 @@ jobs:
 
         - name: Terraform Apply
           if: ${{ github.event_name == 'workflow_dispatch' || github.event.inputs.action == 'apply' || github.event.inputs.action == 'push' }}
-          run: terraform apply --auto-approve     
+          run: terraform apply --auto-approve
 
         - name: Send notification to MS Teams
           if: always()

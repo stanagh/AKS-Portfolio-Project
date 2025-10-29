@@ -1,4 +1,4 @@
-name: Terraform infrastructure push
+name: Terraform infrastructure provision 
 
 on:
   push:
@@ -45,7 +45,7 @@ jobs:
             TF_VAR_subscription_id: ${{ secrets.ARM_SUBSCRIPTION_ID }}
 
         - name: Terraform Apply
-          if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.action == 'apply' }}
+          if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.action == 'apply' && github.event.inputs.action == './terraform' }}
           run: terraform apply --auto-approve     
 
         - name: Send notification to MS Teams

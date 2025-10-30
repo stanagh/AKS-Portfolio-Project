@@ -6,3 +6,5 @@ node_modules
 terraform.tfvars.json  
 terraform.tfstate
 terraform.tfstate.backup
+*image.png
+*.log

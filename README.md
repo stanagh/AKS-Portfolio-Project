@@ -6,8 +6,8 @@ It’s built to showcase your DevOps / Platform Engineering skills: IaC, CI/CD (
 - [Architecture Diagram](#architecture-diagram)
 - [Local Setup](#local-setup)
 - [Tech Stack](#tech-stack)
-- [Project Setup](#project-setup)
-- [Lesson Learnt and Improvements](#lesson-learnt-and-improvement)
+- [Project Screenshots](#project-screenshots)
+- [Lesson Learnt and Improvements](#lesson-learnt-and-improvements)
 - [Project Summary](#project-summary)
 
 ## Architecture Diagram

@@ -85,9 +85,7 @@ The repo is organised around three domains:
 <img width="988" height="706" alt="image" src="https://github.com/user-attachments/assets/fac6b403-c65e-4002-b761-8185b92712a0" />
 
 ### Prometheus
-
-
-
+<img width="3808" height="1279" alt="image" src="https://github.com/user-attachments/assets/8cf6c3a6-1535-48b7-a26f-f5bacb06d3d4" />
 
 ### Grafana 
 <img width="2342" height="999" alt="image" src="https://github.com/user-attachments/assets/78bc306f-be38-492b-9780-366f84fa365d" />
@@ -100,9 +98,10 @@ The repo is organised around three domains:
 
 ### Application frontend
 
-![alt text](image-4.png)
-![alt text](image-5.png)
-![alt text](image-6.png)
+<img width="3638" height="1678" alt="image" src="https://github.com/user-attachments/assets/69fa9aa8-89d9-437a-b0fa-950c77f99104" />
+<img width="2964" height="1628" alt="image" src="https://github.com/user-attachments/assets/fa93a83e-8764-4d03-bcc9-123de89c0e4d" />
+<img width="2238" height="1869" alt="image" src="https://github.com/user-attachments/assets/a114cbed-927b-43c5-bc38-93fab39137fc" />
+
 
 ## Lesson Learnt and Improvements
 This project can be extended by adding environment overlays for dev and prod with separate Terraform states or workspaces, implementing GitOps tools like Argo CD or Flux for managing application and cluster lifecycles. Security can be enhanced through Azure Policies, Kubernetes Network and Pod Security Policies.Additionally, the application can be made more resilient with horizontal scaling and safe deployment strategies like blue/green or canary,

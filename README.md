@@ -70,28 +70,33 @@ The repo is organised around three domains:
 ## Project screenshots: 
 ### All Azure resources
 
-![alt text](image.png)
+<img width="3432" height="1800" alt="image" src="https://github.com/user-attachments/assets/206daaa7-e619-4ca3-8d93-3290815e5ecf" />
+
 
 ### GitHub CI/CD workflows
-![alt text](image-1.png)
+<img width="2289" height="540" alt="image" src="https://github.com/user-attachments/assets/a3af45c1-9e4b-4219-b5f3-56b1b9a3d774" />
+
 
 ### SonarQube
-![alt text](image-11.png)
+<img width="3830" height="1863" alt="image" src="https://github.com/user-attachments/assets/5494eb5f-38ac-4f2c-bb51-20162e98140b" />
+
 
 ### Kubernetes services
-![alt text](image-10.png)
-
+<img width="988" height="706" alt="image" src="https://github.com/user-attachments/assets/fac6b403-c65e-4002-b761-8185b92712a0" />
 
 ### Prometheus
-![alt text](image-7.png)
+
+
 
 
 ### Grafana 
-![alt text](image-8.png)
-![alt text](image-9.png)
+<img width="2342" height="999" alt="image" src="https://github.com/user-attachments/assets/78bc306f-be38-492b-9780-366f84fa365d" />
+<img width="3817" height="2066" alt="image" src="https://github.com/user-attachments/assets/8abc68b4-4917-4abf-a343-4af8167e5fc2" />
+
 
 ### MS Teams Alerts
-![alt text](image-3.png)
+<img width="926" height="892" alt="image" src="https://github.com/user-attachments/assets/d97ad221-37d6-4f6f-b1a7-21b3ac5c8d6a" />
+
 
 ### Application frontend
 

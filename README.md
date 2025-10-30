@@ -4,6 +4,11 @@ It’s built to showcase your DevOps / Platform Engineering skills: IaC, CI/CD (
 
 ## Table of Contents
 - [Architecture Diagram](#architecture-diagram)
+- [Local Setup](#local-setup)
+- [Tech Stack](#tech-stack)
+- [Project Setup](#project-setup)
+- [Lesson Learnt and Improvements](#lesson-learnt-and-improvement)
+- [Project Summary](#project-summary)
 
 ## Architecture Diagram
 

@@ -3,28 +3,25 @@ This repository demonstrates the end-to-end deployment of a portfolio applicatio
 It’s built to showcase your DevOps / Platform Engineering skills: IaC, CI/CD (GitHub Actions), monitoring stack, modular Terraform, Kubernetes manifests, and a sample application deployment.
 
 ## Table of Contents
-- [Architecture Diagram](#architecture-diagram)
 - [Local Setup](#local-setup)
 - [Tech Stack](#tech-stack)
 - [Project Screenshots](#project-screenshots)
 - [Lesson Learnt and Improvements](#lesson-learnt-and-improvements)
 - [Project Summary](#project-summary)
 
-## Architecture Diagram
-
 ## Local Setup
 1. **Install dependencies**:
-   ```bash
+   ```
    npm 
    npm start
    npm run build
    ```
 2. Then browse the application: 
-   ```bash
+   ```
    http://localhost:3000/
    ```
 ## Repository structure
-        ```bash
+        
         /terraform            # Terraform modules & root configs for Azure resources
             ├─ modules/
             ├─ environments/
@@ -38,7 +35,7 @@ It’s built to showcase your DevOps / Platform Engineering skills: IaC, CI/CD (
         /.github/workflows    # GitHub Actions workflows: CI, CD, infrastructure deploy
         .gitignore  
         deploy-monitoring.sh   # script to bootstrap monitoring stack manually if required
-        ```
+      
 
 The repo is organised around three domains:
 
